@@ -11,7 +11,7 @@ use WebService::Solr;
 use Scalar::Util ();
 
 __PACKAGE__->mk_classdata( _obj        => undef );
-__PACKAGE__->mk_classdata( _field_prep => undef );
+__PACKAGE__->mk_classdata( _field_prep => {} );
 
 =head1 NAME
 
@@ -100,7 +100,11 @@ sub setup_fields {
     # normalize field defs
     for my $key ( keys %$fields ) {
         $fields->{ $key } = { } if !ref $fields->{ $key };
-    } 
+    }
+
+    if( !exists $fields->{ id } ) {
+        $fields->{ id } = { };
+    }
 
     $self->_field_prep->{ $source } = 1;
 }
@@ -162,10 +166,12 @@ sub as_document {
     for my $name ( keys %$fields ) {
         my $opts    = $fields->{$name};
         my @values  = $self->value_for_field( $object, $name );
-
-        $document->add_fields( [ $name => \@values, $opts ] );
+    
+        for( @values ) {
+            $document->add_fields( [ $name => $_, $opts ] );
+        }
     }
-        
+
     return $document;
 }
 
