@@ -60,7 +60,7 @@ Connects a DBIx::Class-based class to a Solr index.
 
 =head2 new( \%connect_info, $source_class )
 
-Creates a new WebSevice::Solr object and normalizes the filed to be
+Creates a new WebSevice::Solr object and normalizes the fields to be
 indexed.
 
 =cut
