@@ -1,4 +1,4 @@
-use inc::Module::Install 0.77;
+use inc::Module::Install 0.91;
 
 if( -e 'MANIFEST.SKIP' ) {
     system( 'pod2text lib/DBIx/Class/Indexer/WebService/Solr.pm > README' );
@@ -15,5 +15,6 @@ requires 'Scalar::Util';
 
 test_requires 'Test::More';
 
-auto_install;
+repository "http://github.com/bricas/dbix-class-indexer-webservice-solr/tree/master";
+
 WriteAll;
